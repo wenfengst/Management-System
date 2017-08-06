@@ -1,0 +1,21 @@
+$def with (managers,pid,pname)
+
+<h2>审批项目</h2>
+
+<form action="/approve/$pid" method="post">
+
+<label>审批者:</label>
+<select name="mid">
+$for manager in managers:
+	<option value=$manager['mid']>$manager['mname']</option>
+</select>
+
+<label>项目id:</label>
+<select name="pid">
+	<option value=$pid>$pid</option>
+</select></br>
+<p>项目名称:$pname</p>
+<input type="submit" value="审批">
+</form>
+
+<a href="/index_project">返回</a>
