@@ -1,0 +1,24 @@
+$def with (table,items,pid)
+
+<h3>$table[0]管理</h3>
+<style>a{ text-decoration:none}</style> 
+<table border="1" cellspacing="0">
+<tr>
+$for attribute in table[1]:
+	<td>$attribute</td>
+
+<td>approve</td>	
+<td>edit</td>
+</tr>
+$for item in items:
+    <tr>
+	$for attribute in table[1]:
+        <td><a href="/view_class/$item[table[1][0]]">$item[attribute]</a></td>
+	
+    <td><a href="/approve/$item[table[1][0]]/$pid">审批</a></td>
+    <td><a href="/edit_class/$item[table[1][0]]/$pid">编辑</a></td>
+    </tr>
+</table>
+<p><a href="/new_class/$pid">添加$table[0]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/index_project">返回</a></p>
+
+
