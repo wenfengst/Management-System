@@ -1,0 +1,48 @@
+$def with (table,teachers,item,pid)
+
+<style>a{ text-decoration:none}</style> 
+<h2>复制$table[0] $item[table[1][0]]</h2>
+
+$if pid=='':
+	<form action="/copy_class/$item[table[1][0]]/" method="post">
+$else:
+	<form action="/copy_class/$item[table[1][0]]/$item[table[1][1]]" method="post">
+	
+<label>$table[1][1]:</label>
+<input type="text" name=$table[1][1] value=$item[table[1][1]] readonly></br>
+
+<label>tname:</label>	
+<select name="tid">
+$for teacher in teachers:
+	<option value=$teacher['tid']>$teacher['tname']</option>
+</select></br>
+
+<label>$table[1][4]:</label>
+<input type="text" name=$table[1][4] value=$item[table[1][4]] required></br>
+	
+$for i in range(5,9,2):
+	<label>$table[1][i]:</label>
+    <input type="text" name=$table[1][i] value=$item[table[1][i]] required>
+	<label>$table[1][i+1]:</label>
+	<select name=$table[1][i+1]>
+	<option value='0'>上午</option>
+	$if item[table[1][i+1]]==1:
+		<option value='1' selected='selected'>下午</option>
+	$else:
+		<option value='1'>下午</option>
+	</select></br>
+	
+$for i in range(9,11):
+	<label>$table[1][i]:</label>
+    <input type="text" name=$table[1][i] value=$item[table[1][i]] required></br>
+	
+<label>$table[1][-2]:</label>
+<input type="text" name=$table[1][-2] value='未审批' readonly></br>
+<input type="submit" value="复制">
+</form>
+
+$if pid=='':
+	<a href="/index_class/">返回</a>
+$else:
+	<a href="/index_class/$item[table[1][1]]">返回</a>
+

@@ -1,0 +1,24 @@
+$def with (table,items)
+
+<h3>$table[0]管理</h3>
+<style>a{ text-decoration:none}</style> 
+<table border="1" cellspacing="0">
+<tr>
+$for attribute in table[1]:
+	<td>$attribute</td>
+		
+<td>oname</td><td>class</td><td>apply</td><td>edit</td>
+</tr>
+$for item in items:
+    <tr>
+	$for attribute in table[1]:
+		<td><a href="/view_project/$item[table[1][0]]">$item[attribute]</a></td>
+	<td><a href="/view_project/$item['oname']">$item['oname']</a></td>
+	<td><a href="/index_class/$item[table[1][0]]">细项</a></td>
+	<td><a href="/apply/$item[table[1][0]]">申请</a></td>
+	<td><a href="/edit_project/$item[table[1][0]]">编辑</a></td>
+    </tr>
+</table>
+<p><a href="/new_project">添加$table[0]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/">返回</a></p>
+
+

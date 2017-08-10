@@ -1,0 +1,19 @@
+$def with (table,item)
+
+<style>a{ text-decoration:none}</style> 
+<h2>编辑$table[0] $item[table[1][0]]</h2>
+
+<form action="/edit_project/$item[table[1][0]]" method="post">
+$for i in range(2,len(table[1])-2):
+	<label>$table[1][i]:</label>
+    <input type="text" name=$table[1][i] value=$item[table[1][i]] required></br>
+<label>$table[1][4]:</label>
+<input type="text" name=$table[1][4] value=$item[table[1][4]] readonly></br>
+<input type="submit" value="修改">
+</form>
+
+<h3>删除$table[0]？</h3>
+<form action="/delete_project/$item[table[1][0]]" method="post">
+    <input type="submit" value="删除"/>
+</form>
+<a href="/index_project">返回</a>

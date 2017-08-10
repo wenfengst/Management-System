@@ -1,0 +1,37 @@
+$def with (table,pid,teachers,classrooms)
+
+<h2>添加$table[0]</h2>
+<form action="/new_class/$pid" method="post">
+	<label>$table[1][1]:</label>
+    <input type="text" name=$table[1][1] value=$pid readonly></br>
+
+<label>tname:</label>	
+<select name="tid">
+$for teacher in teachers:
+	<option value=$teacher['tid']>$teacher['tname']</option>
+</select></br>
+
+<label>place:</label>
+<select name='crid'>
+<option>请选择</option>
+$for classroom in classrooms:
+	<option value=$classroom['crid']>$classroom['place']$classroom['classroom']</option>
+</select></br>
+
+<label>$table[1][5]:</label>
+<input type="text" name=$table[1][5] required></br>
+	
+$for i in range(6,10,2):
+	<label>$table[1][i]:</label>
+    <input type="text" name=$table[1][i] required>
+	<label>$table[1][i+1]:</label>
+	<select name=$table[1][i+1]>
+	<option value='0'>上午</option>
+	<option value='1'>下午</option>
+	</select></br>
+	
+<label>$table[1][-2]:</label>
+<input type="text" name=$table[1][-2] value="未审批" readonly></br>
+<input type="submit" value="添加"></br>
+</form>
+<a href="/index_class/$pid">返回</a>
