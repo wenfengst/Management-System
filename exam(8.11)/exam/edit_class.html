@@ -1,0 +1,59 @@
+$def with (table,teachers,item,pid,classrooms)
+
+<style>a{ text-decoration:none}</style> 
+<h2>编辑细项 $item[table[1][0]]</h2>
+
+$if pid=='':
+	<form action="/edit_class/$item[table[1][0]]/" method="post">
+$else:
+	<form action="/edit_class/$item[table[1][0]]/$item[table[1][1]]" method="post">
+	
+<label>$table[1][1]:</label>
+<input type="text" name=$table[1][1] value=$item[table[1][1]] readonly></br>
+
+<label>tname:</label>	
+<select name="tid">
+<option value=$item['tid']>不变</option>
+$for teacher in teachers:
+	<option value=$teacher['tid']>$teacher['tname']</option>
+</select></br>
+
+<label>place:</label>
+<select name='crid'>
+<option value=$item['crid']>不变</option>
+$for classroom in classrooms:
+	<option value=$classroom['crid']>$classroom['place']$classroom['classroom']</option>
+</select></br>
+
+<label>$table[1][5]:</label>
+<input type="text" name=$table[1][5] value=$item[table[1][5]] required></br>
+	
+$for i in range(6,10,2):
+	<label>$table[1][i]:</label>
+    <input type="text" name=$table[1][i] value=$item[table[1][i]] required>
+	<label>$table[1][i+1]:</label>
+	<select name=$table[1][i+1]>
+	<option value='0'>上午</option>
+	$if item[table[1][i+1]]==1:
+		<option value='1' selected='selected'>下午</option>
+	$else:
+		<option value='1'>下午</option>
+	</select></br>
+	
+<label>$table[1][-2]:</label>
+<input type="text" name=$table[1][-2] value=$item[table[1][-2]] readonly></br>
+<input type="submit" value="修改">
+</form>
+
+<h3>删除细项？</h3>
+$if pid=='':
+	<form action="/delete_class/$item[table[1][0]]/" method="post">
+	<input type="submit" value="删除"/>
+	</form>
+	<a href="/index_class/">返回</a>
+$else:
+	<form action="/delete_class/$item[table[1][0]]/$item[table[1][1]]" method="post">
+	<input type="submit" value="删除"/>
+	</form>
+	<a href="/index_class/$item[table[1][1]]">返回</a>
+
