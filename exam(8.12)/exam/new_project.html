@@ -1,0 +1,12 @@
+$def with (table)
+
+<h2>添加项目</h2>
+<form action="/new_project" method="post">
+$for i in range(2,len(table[1])-2):
+	<label>$table[1][i]:</label>
+    <input type="text" name=$table[1][i] required></br>
+<label>$table[1][4]:</label>
+<input type="text" name=$table[1][4] value="未申请" readonly></br>
+<input type="submit" value="添加"></br>
+</form>
+<a href="/index_project">返回</a>
