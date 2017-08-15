@@ -1,0 +1,35 @@
+$def with (items,pid)
+
+<h3>细项管理</h3>
+<style>a{ text-decoration:none}</style> 
+<table border="1" cellspacing="0">
+<tr>
+<td>cid</td><td>cname</td><td>begindate</td><td>begintime</td><td>enddate</td><td>endtime</td><td>place</td><td>classroom</td>
+<td>pname</td><td>tname</td><td>approve</td><td>mname</td><td>ctime</td><td>approve</td><td>edit</td><td>copy</td>
+</tr>
+$for item in items:
+    <tr>
+    <td><a href="/view_class/$item['cid']">$item['cid']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['cname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['begindate']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['begintime']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['enddate']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['endtime']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['place']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['classroom']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['pname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['tname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['approve']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['mname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['ctime']</a></td>
+    <td><a href="/approve/$item['cid']/$pid">审批</a></td>
+	<td><a href="/edit_class/$item['cid']/$pid">编辑</a></td>
+	<td><a href="/copy_class/$item['cid']/$pid">复制</a></td>
+    </tr>
+</table>
+$if pid=='': 
+	<p><a href="/approve_class">审批细项</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/">返回</a></p>
+$else:
+	<p><a href="/new_class/$pid">添加细项</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/index_project">返回</a></p>
+
+

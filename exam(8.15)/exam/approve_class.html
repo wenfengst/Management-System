@@ -1,0 +1,49 @@
+$def with (items)
+
+<h3>未审批的细项</h3>
+<style>a{ text-decoration:none}</style> 
+<table border="1" cellspacing="0">
+<tr>
+<td>日期</td>
+$for i in range(1,32):
+	$for ii in ['上','下']:
+		<td>8.$i$ii</td>
+</tr>
+$for i in set(item['classroom'] for item in items):
+	<tr>
+	<td>$i</td>
+	$for item in items:
+		$if item['classroom']==i:
+			$if not(item['begindate'].day==1 and item['begintime']==0):
+				<td colspan=$((item['begindate'].day-1)*2+item['begintime'])></td>
+			<td colspan=$((item['enddate'].day-item['begindate'].day+1)*2+item['endtime']-item['begintime']-1)>$item['pname']</td>
+	</tr>
+</table>
+</br>
+<table border="1" cellspacing="0">
+<tr>
+<td>cid</td><td>cname</td><td>begindate</td><td>begintime</td><td>enddate</td><td>endtime</td><td>place</td><td>classroom</td>
+<td>pname</td><td>tname</td><td>approve</td><td>mname</td><td>ctime</td><td>approve</td>
+</tr>
+$for item in items:
+    <tr>
+    <td><a href="/view_class/$item['cid']">$item['cid']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['cname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['begindate']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['begintime']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['enddate']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['endtime']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['place']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['classroom']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['pname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['tname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['approve']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['mname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['ctime']</a></td>
+    <td><a href="">审批</a></td>
+    </tr>
+</table>
+<p><a href="/index_class/">返回</a></p>
+
+
+
