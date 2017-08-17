@@ -1,0 +1,48 @@
+$def with (items)
+
+<h3>审批细项</h3>
+<style>
+a{ text-decoration:none} 
+table{width:1300px;table-layout:fixed; }
+.date{width:38px;}
+td{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+</style> 
+
+<form action="/approve_class/2017-08" method="post">
+<input type='month' name='date' value=2017-08>
+<input type="submit" value="确定">
+</form>
+
+<table border="1" cellspacing="0">
+<tr>
+<td class='date'>日期</td>
+$for i in range(1,32):
+	<td colspan=2>8.$i</td>
+</tr>
+<tr>
+<td class='date'></td>
+$for ii in range(31):
+	<td>上</td><td class='date'>下</td>
+</tr>
+
+$for i in set(item['classroom'] for item in items):
+	<tr>
+	<td rowspan=$len(list(item['classroom'] for item in items if item['classroom']==i))>$i</td>
+	$for item in items:
+		$if item['classroom']==i:
+			$if not(item['begindate'].day==1 and item['begintime']==0):
+				<td colspan=$((item['begindate'].day-1)*2+item['begintime']) style="border-style:none"></td>
+			$if item['approve']=='未审批'.decode('utf-8'):
+				<td colspan=$((item['enddate'].day-item['begindate'].day+1)*2+item['endtime']-item['begintime']-1) bgcolor='yellow'>
+				<a href="/conflict_class/$item['cid']">$item['pname'] ($item['snumber'])</a>
+				</td>
+			$elif item['approve']=='通过'.decode('utf-8'):
+				<td colspan=$((item['enddate'].day-item['begindate'].day+1)*2+item['endtime']-item['begintime']-1) bgcolor='orange'>
+				<a href="/conflict_class/$item['cid']">$item['pname'] ($item['snumber'])</a>
+				</td>
+			</tr>
+	<tr><td colspan=63></td></tr>
+</table>
+
+<p><a href="/index_class/">返回</a></p>
+

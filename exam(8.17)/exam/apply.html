@@ -1,0 +1,21 @@
+$def with (organizers,pid,pname)
+
+<h2>申请项目</h2>
+
+<form action="/apply/$pid" method="post">
+
+<label>申请者:</label>
+<select name="oid">
+$for organizer in organizers:
+	<option value=$organizer['oid']>$organizer['oname']</option>
+</select>
+
+<label>项目id:</label>
+<select name="pid">
+	<option value=$pid>$pid</option>
+</select></br>
+<p>项目名称:$pname</p>
+<input type="submit" value="申请">
+</form>
+
+<a href="/index_project">返回</a>
