@@ -1,0 +1,25 @@
+$def with (table,items)
+
+<h3>项目管理</h3>
+<style>a{ text-decoration:none}</style> 
+<a href="/">返回</a>&nbsp;&nbsp;<a href="/new_project">添加项目</a>
+<table border="1" cellspacing="0">
+<tr>
+<td>$table[1][0]</td>
+<td>oname</td>
+$for i in range(2,len(table[1])):
+	<td>$table[1][i]</td>
+		
+<td>class</td><td>edit</td>
+</tr>
+
+$for item in items:
+    <tr>
+	<td><a href="/view_project/$item[table[1][0]]">$item[table[1][0]]</a></td>
+	<td><a href="/view_project/$item['oname']">$item['oname']</a></td>
+	$for i in range(2,len(table[1])):
+		<td><a href="/view_project/$item[table[1][0]]">$item[table[1][i]]</a></td>
+	<td><a href="/index_class/$item[table[1][0]]">细项</a></td>
+	<td><a href="/edit_project/$item[table[1][0]]">编辑</a></td>
+    </tr>
+</table>
