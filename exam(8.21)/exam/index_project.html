@@ -1,0 +1,21 @@
+$def with (projects)
+
+<h3>项目管理</h3>
+<style>a{ text-decoration:none}</style> 
+<a href="/">返回</a>&nbsp;&nbsp;<a href="/new_project">添加项目</a>
+<table border="1" cellspacing="0">
+<tr>
+<td>pid</td><td>oname</td><td>pname</td><td>budget</td><td>snumber</td><td>ptime</td><td>class</td><td>edit</td>
+</tr>
+$for project in projects:
+    <tr>
+	<td><a href="/view_project/$project['pid']">$project['pid']</a></td>
+	<td><a href="/view_project/$project['pid']">$project['oname']</a></td>
+	<td><a href="/view_project/$project['pid']">$project['pname']</a></td>
+	<td><a href="/view_project/$project['pid']">$project['budget']</a></td>
+	<td><a href="/view_project/$project['pid']">$project['snumber']</a></td>
+	<td><a href="/view_project/$project['pid']">$project['ptime']</a></td>
+	<td><a href="/index_class/$project['pid']">细项</a></td>
+	<td><a href="/edit_project/$project['pid']">编辑</a></td>
+    </tr>
+</table>
