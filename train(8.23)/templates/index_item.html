@@ -1,0 +1,20 @@
+$def with (table,items)
+
+<h3>$table[0]管理</h3>
+<style>a{ text-decoration:none}</style> 
+<a href="/">返回</a>&nbsp;&nbsp;<a href="/new_item/$table[0]">添加$table[0]</a>
+<table border="1" cellspacing="0">
+<tr>
+$for attribute in table[1]:
+	<td>$attribute</td>
+		
+<td>edit</td>
+</tr>
+$for item in items:
+    <tr>
+	$for attribute in table[1]:
+        <td><a href="/view_item/$table[0]/$item[table[1][0]]">$item[attribute]</a></td>
+     <td><a href="/edit_item/$table[0]/$item[table[1][0]]">编辑</a></td>
+    </tr>
+</table>
+

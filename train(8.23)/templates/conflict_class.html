@@ -1,0 +1,30 @@
+$def with (items,date)
+
+<h3>审核细项</h3>
+<style>a{ text-decoration:none}</style>
+<p><a href="/approve_class/$date">返回</a></p>
+<table border="1" cellspacing="0">
+<tr>
+<td>cid</td><td>cname</td><td>begindate</td><td>begintime</td><td>enddate</td><td>endtime</td><td>place</td><td>classroom</td>
+<td>pname</td><td>snumber</td><td>tname</td><td>approve</td><td>mname</td><td>ctime</td><td>approve</td>
+</tr>
+$for item in items:
+    <tr>
+    <td><a href="/view_class/$item['cid']">$item['cid']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['cname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['begindate']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['begintime']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['enddate']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['endtime']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['place']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['classroom']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['pname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['snumber']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['tname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['approve']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['mname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['ctime']</a></td>
+    <td><a href="/approve/$item['cid']">审批</a></td>
+    </tr>
+</table>
+

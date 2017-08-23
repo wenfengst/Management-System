@@ -1,0 +1,50 @@
+$def with (items,pid,date)
+
+<h3>细项管理</h3>
+<style>a{ text-decoration:none}</style>
+$if pid=='' or pid=='unapprove' or pid=='pass' or pid=='notpass':
+	<a href="/">返回</a>&nbsp;&nbsp;
+	<a href='/index_class/'>全部</a>&nbsp;&nbsp;
+	<a href='/index_class/unapprove'>未审批</a>&nbsp;&nbsp;
+	<a href='/index_class/pass'>通过</a>&nbsp;&nbsp;
+	<a href='/index_class/notpass'>不通过</a>&nbsp;&nbsp;
+	<a href="/approve_class/$date">审批细项</a></br>
+$else:
+	<a href="/index_project">返回</a>&nbsp;&nbsp;
+	<a href="/new_class/$pid">添加细项</a></br>
+
+<table border="1" cellspacing="0">
+<tr>
+<td>cid</td><td>cname</td><td>begindate</td><td>begintime</td><td>enddate</td><td>endtime</td><td>place</td><td>classroom</td>
+<td>pname</td><td>snumber</td><td>tname</td><td>approve</td><td>mname</td><td>ctime</td><td>edit</td><td>copy</td>
+</tr>
+<tbody id="tab"> 
+$for item in items:
+    <tr>
+    <td><a href="/view_class/$item['cid']">$item['cid']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['cname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['begindate']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['begintime']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['enddate']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['endtime']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['place']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['classroom']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['pname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['snumber']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['tname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['approve']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['mname']</a></td>
+	<td><a href="/view_class/$item['cid']">$item['ctime']</a></td>
+	<td><a href="/edit_class/$item['cid']/$pid">编辑</a></td>
+	<td><a href="/copy_class/$item['cid']/$pid">复制</a></td>
+    </tr>
+</tbody>
+</table>
+
+<span id="spanFirst">第一页</span>
+<span id="spanPre">上一页</span>
+<span id="spanNext">下一页</span>
+<span id="spanLast">最后一页</span>
+第<span id="spanPageNum"></span>页/共<span id="spanTotalPage"></span>页
+
+<script type="text/javascript" src="/templates/paging.js"></script> 
