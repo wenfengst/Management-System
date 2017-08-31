@@ -1,0 +1,32 @@
+$def with (items,pid,date)
+
+<h3>细项管理</h3>
+<style>a{ text-decoration:none}</style>
+<a href="/index_project">返回</a>&nbsp;&nbsp;
+<a href="/new_class/$pid">添加细项</a></br>
+
+<table border="1" cellspacing="0">
+<tr>
+<td>细项名称</td><td>开始时间</td><td>结束时间</td><td>地点</td><td>教室</td><td>项目名称</td>
+<td>学生人数</td><td>教师姓名</td><td>审批状态</td><td>审批者</td><td>最近修改</td><td>查看</td><td>编辑</td><td>复制</td>
+</tr>
+<tbody id="tab"> 
+$for item in items:
+    <tr>
+	<td>$item['cname']</td>
+	<td>$item['begindate']$('上' if item['begintime']==0 else '下')</td>
+	<td>$item['enddate']$('上' if item['endtime']==0 else '下')</td>
+	<td>$item['place']</td>
+	<td>$item['classroom']</td>
+	<td>$item['pname']</td>
+	<td>$item['snumber']</td>
+	<td>$item['tname']</td>
+	<td>$item['approve']</td>
+	<td>$item['manager']</td>
+	<td>$item['ctime']</td>
+	<td><a href="/conflict_class/$item['cid']">是否冲突</a></td>
+	<td><a href="/edit_class/$item['cid']/$pid">编辑</a></td>
+	<td><a href="/copy_class/$item['cid']/$pid">复制</a></td>
+    </tr>
+</tbody>
+</table>

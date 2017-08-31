@@ -1,0 +1,10 @@
+$def with (table)
+
+<h3>添加$table[0]</h3>
+<a href="/index_item/$table[0]">返回</a>
+<form action="/new_item/$table[0]" method="post">
+$for i in range(1,len(table[1])-1):
+	<label>$table[1][i]:</label>
+    <input type="text" name=$table[1][i] required></br>
+<input type="submit" value="添加"></br>
+</form>
