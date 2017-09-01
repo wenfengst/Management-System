@@ -1,0 +1,32 @@
+$def with (items,date,cid)
+
+<h3>查看细项是否冲突</h3>
+<style>a{ text-decoration:none}</style>
+<p><a href="/approve_class/$date">返回</a></p>
+<table border="1" cellspacing="0">
+<tr><td>细项名称</td><td>开始时间</td><td>结束时间</td><td>地点</td><td>教室</td><td>项目名称</td>
+<td>学生人数</td><td>教师姓名</td><td>申请者</td><td>审批状态</td><td>审批者</td><td>最近修改</td><td>备注</td>
+<td>审批</td>
+</tr>
+$for item in items:
+	<tr>
+	<td>$item['cname']</td>
+	<td>$item['begindate']$('上' if item['begintime']==0 else '下')</td>
+	<td>$item['enddate']$('上' if item['endtime']==0 else '下')</td>
+	<td>$item['place']</td>
+	<td>$item['classroom']</td>
+	<td>$item['pname']</td>
+	<td>$item['snumber']</td>
+	<td>$item['tname']</td>
+	<td>$item['organizer']</td>
+	<td>$item['approve']</td>
+	<td>$item['manager']</td>
+	<td>$item['ctime']</td>
+	$if item['cid']==int(cid):
+		<td></td>
+	$else:
+		<td>冲突</td>
+	<td><a href="/approve/$item['cid']">审批</a></td>
+	</tr>
+</table>
+
