@@ -1,0 +1,18 @@
+$def with (projects)
+
+<h3>项目管理</h3>
+<a href="/index">返回</a>
+<table border="1" cellspacing="0">
+<tr>
+<td>申请者</td><td>项目名称</td><td>学生人数</td><td>项目预算</td><td>最后修改</td><td>细项</td>
+</tr>
+$for project in projects:
+    <tr>
+	<td>$project['username']</td>
+	<td width=250>$project['pname']</td>
+	<td>$project['snumber']</td>
+	<td>$project['budget']</td>
+	<td>$project['ptime']</td>
+	<td><a href="/index_class_project/$project['pid']">细项</a></td>
+    </tr>
+</table>

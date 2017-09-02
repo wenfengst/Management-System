@@ -1,0 +1,28 @@
+$def with (project)
+
+<h3>编辑项目</h3>
+<a href="/index_project">返回</a>
+<form action="/edit_project/$project['pid']" method="post">
+
+<label>项目名称:</label>
+<input type="text" name='pname' value=$project['pname'] required></br>
+<label>项目预算:</label>
+<input type="text" name='budget' value=$project['budget'] required></br>
+<label>学生人数:</label>
+<input type="text" name='snumber' value=$project['snumber'] required></br>
+
+<input type="submit" value="修改">
+</form>
+
+<form action="/delete_project/$project['pid']" method="post">
+	<label>删除项目？</label>
+    <input type="submit" value="删除" onClick="delcfm()"/>
+</form>
+
+<script language="javascript">
+function delcfm() { 
+        if (!confirm("确认要删除？")) { 
+            window.event.returnValue = false; 
+        } 
+    } 
+</script>
