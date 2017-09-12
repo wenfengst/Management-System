@@ -1,0 +1,16 @@
+$def with (cid,cname)
+
+<h3>审批细项</h3>
+<a href="/conflict_class/$cid">返回</a>
+<form action="/approve/$cid" method="post">
+<input type='text' name='cid' value=$cid hidden=hidden readonly>
+<p>细项名称:$cname</p>
+
+<label>审批:</label>
+<select name="approve">
+	<option value='通过'>通过</option>
+	<option value='不通过'>不通过</option>
+</select></br>
+
+<input type="submit" value="审批">
+</form>
