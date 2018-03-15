@@ -1,0 +1,42 @@
+<style>
+	.jumbotron {margin:0;height:100%;width:100%;background:url(../static/photo/teacher.jpg) no-repeat; overflow: hidden;background-size:cover;}
+	.container {height:60%;width:60%;padding-top:5%;}
+	.login {background-color:#375583;color:white;width:50%;padding:3%;margin-left:25%;margin-top:5%;border-radius:10px;}
+</style>
+<div class="jumbotron">
+  <div class="container">
+	
+	<div class="login">
+    <form class="form-signin" action="" method="post">
+        <h2 class="form-signin-heading">请登陆</h2>
+        <label for="username" class="sr-only">用户名</label>
+        <input type="text" name="username" class="form-control" placeholder="用户名" required="" autofocus="">
+        <label for="password" class="sr-only">密码</label>
+        <input type="password" name="password" class="form-control" placeholder="密码" required="">
+        
+		<div class="radio">       
+			<label class="radio-inline">
+				<input type="radio" name="usertype" value="organizer" checked="checked" >申请人员
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="usertype" value="manager" />审批人员
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="usertype" value="administrator" />后台管理
+			</label>          
+		</div>
+		<div style="">
+			<input class="btn btn-primary" type="submit" value="登录" style=""/>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input class="btn btn-primary" type="reset" value="重置" style=""/>
+		</div>
+    </form>
+	</div>
+	
+  </div>
+</div>
+
+
+        
+        
+        
+        

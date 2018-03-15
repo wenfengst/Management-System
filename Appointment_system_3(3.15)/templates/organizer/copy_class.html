@@ -1,0 +1,123 @@
+$def with (teachers,item,pid,classrooms)
+<div class="center-block" style="margin-left: 10%; margin-right: 50%;">
+<div class="page-header">
+<h4><strong>复制细项 </strong><a href="javascript:history.go(-1);">返回</a></h4>
+
+</div>
+<form action="/copy_class/$item['cid']/$pid" method="post" class="form-group">
+	
+<label hidden="hidden">项目id:</label>
+<input type="text" name='pid' value=$item['pid'] readonly hidden="hidden">
+
+<label>输入教师姓名并查询</label>
+<br>
+<input type="text" id='tname' placeholder="请先输入教师姓名进行查询" class="form-control" style="width:50%">
+<br>
+<input type="button" id='tbtn' class="btn btn-primary" value="查询">
+<br>
+<br>
+
+<label>查询后从下拉菜单选取</label><br>
+<select id="v-for-tlist" class="form-control" name="tid">
+	<option value=$item['tid']>不变</option>
+	<option v-for="tObj in object" v-bind:value="tObj.tid"> {{tObj.tname+" "+ tObj.company+" "+ tObj.bank_name + " "+ tObj.bank_number +" "+tObj.title +" "+ tObj.salary+"元/小时"}}
+	</option> 
+</select><br>
+<!--
+<label>教师姓名:</label>	
+<select name="tid" class="form-control">
+<option value=$item['tid']>不变</option>
+$for teacher in teachers:
+	<option value=$teacher['tid']>$teacher['tname']</option>
+</select></br>
+-->
+<label>地点:</label>
+</br>
+<select name='crid' class="form-control">
+<option value=$item['crid']>不变</option>
+$for classroom in classrooms:
+	<option value=$classroom['crid']>$classroom['place']-$classroom['classroom']-$classroom['number']人</option>
+</select></br>
+
+<label>细项名称:</label>
+<input type="text" name='cname' value=$item['cname'] required class="form-control"></br>
+	
+<label>开始日期:</label>
+</br>
+<input type="date" name='begindate' value=$item['begindate'] required class="form-control">
+<label>开始时间:</label>
+</br>
+<select name='begintime' class="form-control">
+<option value='0'>上午</option>
+$if item['begintime']==1:
+	<option value='1' selected='selected'>下午</option>
+$else:
+	<option value='1'>下午</option>
+</select></br>
+	
+<label>结束日期:</label>
+</br>
+<input type="date" name='enddate' value=$item['enddate'] required class="form-control">
+<label>结束时间:</label>
+</br>
+<select name='endtime' class="form-control">
+<option value='0'>上午</option>
+$if item['endtime']==1:
+	<option value='1' selected='selected'>下午</option>
+$else:
+	<option value='1'>下午</option>
+</select></br>
+	
+<label>审批状态:</label>
+<input type="text" name='approve' value='未审批' readonly class="form-control"></br>
+<input type="submit" value="复制" class="btn btn-primary">
+</form>
+</div>
+<script>
+var tDict={};
+var app=new Vue({
+		  el: '#v-for-tlist',
+		  data: {
+		    object:{}
+		  }
+		})
+jQuery(document).ready(function() {
+	jQuery("#alertmsg").hide();
+	jQuery("#alertmsg_t").hide();
+
+  	jQuery("#tbtn").click(function(){ 
+  		jQuery("#alertmsg_t").hide();
+  		
+    	jQuery.ajax({  
+	        type: "GET",  
+	        url:"/json_get_tlist/"+jQuery("#tname").val(),  
+	        async:true,
+	        cache:false,                    
+	        dataType:"json",            
+	        success:function(msg){  
+
+				if(msg.length>0)	
+				{
+		        	app.object=msg;
+		        	for (i=0;i< app.object.length;i++)
+		        	{	   
+		        		tDict[app.object[i].tid]=app.object[i];
+		        	}
+		        		jQuery("#tlist_choose").attr("style","display: inline");
+                jQuery("#teacherid").val(app.object[0].tid);
+                jQuery("#tname_confirm").val(tDict[app.object[0].tid].tname);
+                jQuery("#tcompany").val(tDict[app.object[0].tid].company);
+                if(tDict[app.object[0].tid].bank_name.length>0)
+                  jQuery("#tbank_name").val(tDict[app.object[0].tid].bank_name);
+                jQuery("#tbank_num").val(tDict[app.object[0].tid].bank_number);
+                jQuery("#ttitle").val(tDict[app.object[0].tid].title);
+                jQuery("#tsalary").val(tDict[app.object[0].tid].salary);
+       	        jQuery("#v-for-tlist").focus();	              
+	        	}
+	        	else
+	        		jQuery("#alertmsg_t").show();
+	        }  
+      	});  
+  	});   
+});  
+</script> 

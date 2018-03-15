@@ -1,0 +1,35 @@
+$def with (page)
+
+<html>
+<head>
+    <title>教室预约系统</title>
+    <style>
+		a {text-decoration:none}
+		.bar {color:375583;font-size:16;}
+    </style>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-theme.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-default ">
+        <div class="container">
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              	<li><a href="/index_item/user"><strong><font class="bar">用户管理</font></strong></a></li>
+				<li><a href="/index_item/teacher"><strong><font class="bar">局内教师管理</font></strong></a></li>
+				<li><a href="/index_item/teacher_out"><strong><font class="bar">局外教师管理</font></strong></a></li>
+				<li><a href="/index_item/classroom"><strong><font class="bar">场地管理</font></strong></a></li>
+				<li><a href="/index_item/student"><strong><font class="bar">学员管理</font></strong></a></li>
+              	<li><a href="/logout"><strong><font class="bar">退出</font></strong></a></li>
+            </ul>
+			<div><img src="../../static/photo/logo.jpg" alt="logo" height="50" width="230" align="right"/></div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+
+$:page
+
+</body>
+
+</html>

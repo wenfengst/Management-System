@@ -1,0 +1,20 @@
+$def with (cid,cname)
+<div class="center-block" style="margin-left: 10%; margin-right: 50%;">
+<div class="page-header">
+<h4><strong>审批细项 </strong><a href="/conflict_class/$cid">返回</a></h4>
+
+</div>
+<form action="/approve/$cid" method="post" class="form-group">
+<input type='hidden' name='cid' value=$cid readonly class="form-control input-lg">
+
+<label>细项名称:</label>
+<input type="text" name='cname' value=$cname class="form-control" readonly required></br>
+
+<label>审批:</label>
+<select name="approve" class="form-control input-lg">
+	<option value='通过'>通过</option>
+	<option value='不通过'>不通过</option>
+</select></br>
+
+<input type="submit" class="btn btn-primary" value="审批">
+</form>
