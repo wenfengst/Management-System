@@ -1,0 +1,51 @@
+$def with (items,date,days)
+<style>
+.project{height:65;overflow:hidden;text-overflow: ellipsis;}
+.title{width:35;height:20;}
+.date{width:15;height:20;}
+</style> 
+
+<div class="page-header">
+<h4><strong>月度汇总 </strong><a href="/index">返回</a></h4>
+
+</div>
+
+<form action="/monthly_summary/$date" method="post">
+
+<input type='month' name='date' value=$date>
+<input type="submit" class="btn btn-primary" value="确定">
+</form>
+
+<table class="table table-bordered table-condensed">
+<tr>
+<td colspan=2><div class='title'>日期</div></td>
+$for i in range(1,days+1):
+	<td colspan=2><div class='date'>$i</div></td>
+</tr>
+<tr>
+<td><div class='title'>地点</div></td><td><div class='title'>教室</div></td>
+$for ii in range(days):
+	<td><div class='date'>上</div></td><td><div class='date'>下</div></td>
+</tr>
+<tr><td colspan=$(days*2+2)></td></tr>
+$for p in set(item['place'] for item in items):
+	<tr>
+	<td rowspan=$len(list(item for item in items if item['place']==p))><div class='project'>$p</div></td>
+	$for i in set(item['classroom'] for item in items if item['place']==p):
+		<td rowspan=$len(list(item for item in items if item['place']==p and item['classroom']==i))><div class='project'>$i</div></td>
+		$for item in items:
+			$if item['place']==p and item['classroom']==i:
+				$if not(item['begindate'].day==1 and item['begintime']==0):
+					<td class="project" colspan=$((item['begindate'].day-1)*2+item['begintime'])><div class='project'></div></td>
+				<td colspan=$((item['enddate'].day-item['begindate'].day+1)*2+item['endtime']-item['begintime']-1) class="alert alert-success project" style='vertical-align: middle;text-align: center;'>
+				<div class='project'><a href="/view_class/$item['cid']" title=$item['pname']_$item['snumber']>$item['pname']_$item['snumber']</a>
+				</div></td>
+				$if item['enddate'].day < days:
+					<td class="project" colspan=$((days-item['enddate'].day)*2+1-item['endtime'])><div class='project'></div></td>
+				$elif c['enddate'].day==days and c['endtime']==0:
+					<td class="project"><div class='project'></div></td>
+				</tr>
+				<tr>
+
+</table>
+

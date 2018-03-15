@@ -1,0 +1,40 @@
+$def with (items,date)
+<div class="center-block" style="margin-left: 10%; margin-right: 10%;">
+<div class="page-header">
+<h4><strong>细项管理 </strong><a href="/index">返回</a></h4>
+</div>
+<a href='/index_class/'>全部</a>&nbsp;&nbsp;
+<a href='/index_class/unapprove'>未审批</a>&nbsp;&nbsp;
+<a href='/index_class/pass'>通过</a>&nbsp;&nbsp;
+<a href='/index_class/notpass'>不通过</a><br><br>
+
+<table class="table table-bordered">
+<tr>
+<td>细项名称</td><td>开始时间</td><td>结束时间</td><td>地点</td><td>教室</td><td>项目名称</td>
+<td>学生人数</td><td>教师姓名</td><td>申请人员</td><td>审批状态</td><td>审批者</td><td>最近修改</td>
+</tr>
+<tbody id="tab"> 
+$for item in items:
+    <tr>
+	<td width=150>$item['cname']</td>
+	<td>$item['begindate']$('上' if item['begintime']==0 else '下')</td>
+	<td>$item['enddate']$('上' if item['endtime']==0 else '下')</td>
+	<td>$item['place']</td>
+	<td>$item['classroom']</td>
+	<td width=150>$item['pname']</td>
+	<td>$item['snumber']</td>
+	<td>$item['tname']</td>
+	<td>$item['organizer']</td>
+	<td>$item['approve']</td>
+	<td>$item['manager']</td>
+	<td>$item['ctime']</td>
+    </tr>
+</tbody>
+</table>
+
+<span id="spanFirst">第一页</span>&nbsp;&nbsp;
+<span id="spanPre">上一页</span>&nbsp;&nbsp;
+<span id="spanNext">下一页</span>&nbsp;&nbsp;
+<span id="spanLast">最后一页</span>&nbsp;&nbsp;
+第<span id="spanPageNum"></span>页/共<span id="spanTotalPage"></span>页
+<script type="text/javascript" src="../static/js/paging.js"></script> 

@@ -1,0 +1,48 @@
+$def with (table,cname,item)
+<div class="center-block" style="margin-left: 10%; margin-right: 10%;">
+<div class="page-header">
+<h4><strong>编辑$cname[table[0]] </strong><a href="/index_item/$table[0]">返回</a></h4>
+</div>
+<form action="/edit_item/$table[0]/$item[table[1][0]]" method="post" class="form-group" style="max-width: 330px;">
+$if table[0]=='user':
+    <label>$cname[table[1][1]]:</label>
+	<select name="usertype" class="form-control input-lg">
+	<option value=$item[table[1][1]]>不变</option>
+	<option value="organizer">申请人员</option>
+	<option value="manager">审批人员</option>
+	<option value="administrator">后台管理员</option>
+	</select></br>
+	$for i in range(2,len(table[1])-1):
+		<label>$cname[table[1][i]]:</label>
+	    <input type="text" name=$table[1][i] value=$item[table[1][i]] class="form-control" required></br>
+$elif table[0]=='classroom':
+	<label>$cname[table[1][1]]:</label>
+	<select name="place" class="form-control input-lg">
+	<option value=$item[table[1][1]]>不变</option>
+	<option value="东圃">东圃</option>
+	<option value="南沙">南沙</option>
+	<option value="清河">清河</option>
+	<option value="其他">其他</option>
+	</select></br>
+	$for i in range(2,len(table[1])-1):
+		<label>$cname[table[1][i]]:</label>
+		<input type="text" name=$table[1][i]  value=$item[table[1][i]] class="form-control" required></br>
+$else:
+	$for i in range(1,len(table[1])-1):
+		<label>$cname[table[1][i]]</label>
+		<input type="text" name=$table[1][i] value=$item[table[1][i]] class="form-control" required></br>
+<input type="submit" class="btn btn-primary" value="修改">
+</form></br>
+
+<form action="/delete_item/$table[0]/$item[table[1][0]]" class="form-group" method="post">
+	<label>删除$cname[table[0]]？</label>
+    <input type="submit" value="删除" class="btn btn-primary" onClick="delcfm()"/>
+</form>
+
+<script language="javascript">
+function delcfm() { 
+        if (!confirm("确认要删除？")) { 
+            window.event.returnValue = false; 
+        } 
+    } 
+</script>

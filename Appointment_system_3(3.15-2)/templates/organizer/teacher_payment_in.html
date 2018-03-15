@@ -1,0 +1,324 @@
+﻿<div class="container" id="left-container">
+	<h4><strong>师资管理（局内酬金表） </strong><a href="/index">返回</a></h4><br>
+	<div id='plist'>
+	<label>请选择项目</label>
+	<br>
+	<select id="v-for-plist" class="form-control"  style="width: 30%;">
+	<option v-for="pObj in object" v-bind:value="pObj.tid"> {{pObj.pname}}
+	</option> 
+	<option value='-1' id='tmpotpion' style="display: none;"></option>
+	</select>
+</div>
+<div class="alert alert-danger" id='alertmsg_t'>请重新查询或手动填写师资信息</div>
+<input type="button" id='tshowbtn' class="btn btn-primary" value="重选项目" style="display: none"><br><br>
+<label>输入局内教师姓名并查询</label>
+<br>
+<input type="text" id='tname' placeholder="请先输入教师姓名进行查询" class="form-control" style="width:30%">
+<br>
+<input type="button" id='tbtn' class="btn btn-primary" value="查询">
+<br>
+<br>
+<div id="tlist_choose" style="display: none;">
+<label>查询后从下拉菜单选取</label>
+<br><select id="v-for-tlist" class="form-control" style="width:70%">
+	<option v-for="tObj in object" v-bind:value="tObj.tid"> {{tObj.tname+" "+tObj.company+" "+ tObj.bank_name + " "+ tObj.bank_number +" "+tObj.title +" "+ tObj.salary+"元/小时"}}
+	</option> 
+</select>
+</div>
+<div class="row" id="mid-container" style="display: none;">
+
+
+<div class="alert alert-danger" id='alertmsg' style="width:70%">请补充完整师资信息（包括学时），全部为必填项</div>
+<form class="form-group" action="" style="max-width: 70%;">	
+	<input type="text" id='teacherid' hidden="hidden" ><br>
+<div class="row">
+	<div class="col-md-12">
+	<label>请输入参与内容或者选择项目</label><br>
+	<input type="text" id='tprojectname' placeholder="请输入项目名称或者选择项目" class="form-control"><br>
+	</div>	
+</div>
+<div class="row">
+	<div class="col-md-6">
+	<label>姓名</label><br><input type="text" id='tname_confirm' placeholder="姓名" class="form-control"><br>
+	</div>
+	<div class="col-md-6">
+	<label>单位</label><br><input type="text" id='tcompany' placeholder="单位" class="form-control"><br>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+	<label>开户行</label><br><input type="text" id='tbank_name' value="工行" placeholder="开户行" class="form-control"><br>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+	<label>账号</label><br><input type="text" id='tbank_num' placeholder="账号" class="form-control"><br>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+	<label>职称</label><br><input type="text" id='ttitle' placeholder="职称" class="form-control"><br>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+	<label>师资系数</label><br><input type="text" id='tsalary' placeholder="等级" class="form-control"><br>
+	</div>
+
+
+	<div class="col-md-6">
+	<label>学时</label><br><input type="text" id='thour' placeholder="请输入学时" class="form-control"><br>
+</div>
+</div>
+	<input type="button" id='tadd' class="btn btn-primary" value="添加"><br>
+</form>
+</div>
+</div>
+<div class="col-md-8" id="right-container" style="display: none;">
+<div class="page-header"><h4>生成表单（酬金表、导盘表）</h4></div>	
+<div class="row">
+	<div class="col-md-4">
+
+
+<label>请输入项目名称</label><br>
+<input type="text" id='tprojectinput' placeholder="请输入项目名" class="form-control" style="width:100%"><br>
+	</div>
+	<div class="col-md-4">
+<label>请输入项目时间段</label><br>
+<input type="text" id='tprojecttime' placeholder="请输入时间段" class="form-control" style="width:100%"><br>
+	</div>
+</div>
+<table id="v-for-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                    	<th style="display: none;">index</th>
+                    	<th style="display: none;">tid</th>
+                        <th>参与内容</th>
+                        <th>姓名</th>
+                        <th>单位</th>
+                        <th>银行银行</th>
+                        <th>银行账号</th>
+                        <th>职称</th>
+                        <th>学时</th>
+                        <th>发放金额</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for ="(itm,index) in object">
+                    	<td style="display: none;">{{index}}</td>
+                        <td style="display: none;">{{itm.tid}}</td>
+                        <td>{{itm.projectname}}</td>
+                        <td>{{itm.name}}</td>
+                        <td>{{itm.cname}}</td>
+                        <td>{{itm.bank_name}}</td>
+                        <td>{{itm.bank_num}}</td>
+                        <td>{{itm.title}}</td>
+                        <td>{{itm.hour_count}}</td>
+                        <td>{{itm.total}}</td>
+                        <td><button class="btn btn-primary" v-on:click="remove(index)">删除行</button></td>
+                    </tr>                    
+                </tbody>
+            </table>
+   	<input type="button" id='tdown' class="btn btn-primary" value="生成酬金表">&nbsp;&nbsp;&nbsp;&nbsp;
+   	<input type="button" id='tdown_daopan' class="btn btn-primary" value="生成导盘表">
+</div>
+
+
+<script>  
+var tDict={};
+var tableDict=[];
+var app_table=new Vue({
+		  el: '#v-for-table',
+		  data: {
+		    object:tableDict
+		  },
+		  methods: {		    
+		    remove: function (index) {
+		      this.object.splice(index, 1);
+		    }
+		  }
+		})
+var app_project=new Vue({
+		  el: '#v-for-plist',
+		  data: {
+		    object:{}
+		  }
+		})
+
+var app=new Vue({
+		  el: '#v-for-tlist',
+		  data: {
+		    object:{}
+		  }
+		})
+jQuery(document).ready(function() {
+	jQuery("#alertmsg").hide();
+	jQuery("#alertmsg_t").hide();
+	jQuery("#v-for-plist").focus();
+	jQuery.ajax({  
+	        type: "GET",  
+	        url:"/json_get_project",  
+	        async:true,
+	        cache:false,                    
+	        dataType:"json",            
+	        success:function(msg){  
+	        	app_project.object=msg;	
+	        	jQuery("#tprojectname").val(msg[0].pname);  
+	        	jQuery("#v-for-plist").val('-1');
+	        }  
+      	});
+
+	jQuery("#v-for-plist").change(function(){
+  		jQuery("#tprojectname").val(jQuery("#v-for-plist").find("option:selected").text());  	
+  		jQuery("#tprojectinput").val(jQuery("#v-for-plist").find("option:selected").text());  	  		
+  		jQuery("#mid-container").attr("style","display: inline");  
+  		
+  		jQuery("#tname").focus();
+  		jQuery("#plist").attr("style","display:none");
+  		jQuery("#tshowbtn").attr("style","display:inline");  
+	});
+
+	jQuery("#v-for-tlist").change(function(){
+		jQuery("#teacherid").val(jQuery('#v-for-tlist').val());
+  		jQuery("#tname_confirm").val(tDict[jQuery('#v-for-tlist').val()].tname);
+  		jQuery("#tcompany").val(tDict[jQuery('#v-for-tlist').val()].company);
+  		if(tDict[jQuery('#v-for-tlist').val()].bank_name.length>0)
+  			jQuery("#tbank_name").val(tDict[jQuery('#v-for-tlist').val()].bank_name);
+  		jQuery("#tbank_num").val(tDict[jQuery('#v-for-tlist').val()].bank_number);
+  		jQuery("#ttitle").val(tDict[jQuery('#v-for-tlist').val()].title);
+  		jQuery("#tsalary").val(tDict[jQuery('#v-for-tlist').val()].salary);
+  		 
+  		 		
+	});
+
+  	jQuery("#tbtn").click(function(){ 
+  		jQuery("#alertmsg_t").hide();
+  		
+    	jQuery.ajax({  
+	        type: "GET",  
+	        url:"/json_get_tlist/"+jQuery("#tname").val(),  
+	        async:true,
+	        cache:false,                    
+	        dataType:"json",            
+	        success:function(msg){  
+
+				if(msg.length>0)	
+				{
+		        	app.object=msg;
+		        	for (i=0;i< app.object.length;i++)
+		        	{	   
+		        		tDict[app.object[i].tid]=app.object[i];
+		        	}
+		        		jQuery("#tlist_choose").attr("style","display: inline");
+                jQuery("#teacherid").val(app.object[0].tid);
+                jQuery("#tname_confirm").val(tDict[app.object[0].tid].tname);
+                jQuery("#tcompany").val(tDict[app.object[0].tid].company);
+                if(tDict[app.object[0].tid].bank_name.length>0)
+                  jQuery("#tbank_name").val(tDict[app.object[0].tid].bank_name);
+                jQuery("#tbank_num").val(tDict[app.object[0].tid].bank_number);
+                jQuery("#ttitle").val(tDict[app.object[0].tid].title);
+                jQuery("#tsalary").val(tDict[app.object[0].tid].salary);
+       	        jQuery("#v-for-tlist").focus();	              
+	        	}
+	        	else
+	        		jQuery("#alertmsg_t").show();
+	        }  
+      	});  
+  	});  
+  	jQuery("#tdown_daopan").click(function(){ 
+  		var form=jQuery("<form id='tmpdown'>");//定义一个form表单  
+                form.attr("style","display:none");  
+                form.attr("target","");  
+                form.attr("method","post");  
+                form.attr("action","/file_xlsx_daopan");  
+                var input1=jQuery("<input>");  
+                input1.attr("type","hidden");  
+                input1.attr("name","jsonstr"); 
+                input1.attr("value",JSON.stringify(tableDict));  
+                var input2=jQuery("<input>");  
+                input2.attr("type","hidden");  
+                input2.attr("name","ptime"); 
+                input2.attr("value",jQuery('#tprojecttime').val());  
+                
+                var input3=jQuery("<input>");  
+                input3.attr("type","hidden");  
+                input3.attr("name","pname"); 
+                input3.attr("value",jQuery("#tprojectinput").val());  
+                
+                jQuery("body").append(form);//将表单放置在web中  
+                form.append(input1);  
+                form.append(input2); 
+                form.append(input3); 	
+
+                form.submit();//表单提交               
+                form.remove();//表单提交               
+                alert('请填写制表人、审核人并核对表格信息');	      	  
+  	}); 
+  	jQuery("#tdown").click(function(){ 
+
+  		var form=jQuery("<form id='tmpdown'>");//定义一个form表单  
+                form.attr("style","display:none");  
+                form.attr("target","");  
+                form.attr("method","post");  
+                form.attr("action","/file_xlsx_payment_in");  
+                var input1=jQuery("<input>");  
+                input1.attr("type","hidden");  
+                input1.attr("name","jsonstr"); 
+                input1.attr("value",JSON.stringify(tableDict));  
+
+                var input2=jQuery("<input>");  
+                input2.attr("type","hidden");  
+                input2.attr("name","ptime"); 
+                input2.attr("value",jQuery('#tprojecttime').val());  
+                
+                var input3=jQuery("<input>");  
+                input3.attr("type","hidden");  
+                input3.attr("name","pname"); 
+                input3.attr("value",jQuery("#tprojectinput").val());                  
+                
+                jQuery("body").append(form);//将表单放置在web中  
+                form.append(input1);  
+                form.append(input2); 
+                form.append(input3); 	
+
+                form.submit();//表单提交               
+                form.remove();//表单提交    
+                alert('请调整格式并核对表格信息');
+
+  	}); 
+
+  	jQuery("#tadd").click(function(){ 
+  		jQuery("#alertmsg").hide(); 
+  		jQuery("#v-for-table").focus();
+  		var projectname=jQuery("#tprojectname").val();
+  		var title=jQuery("#ttitle").val()+" "+jQuery("#tsalary").val();
+  		var bank_name=jQuery("#tbank_name").val();
+  		var hour_count=jQuery("#thour").val();
+  		var total=Number(jQuery("#tsalary").val())*Number(hour_count);
+  		var name=jQuery("#tname_confirm").val();
+  		var companyname=jQuery("#tcompany").val();
+  		var bank_num=jQuery("#tbank_num").val();
+      var sex=jQuery("#sex").val();
+  		
+  		if(hour_count.length*projectname.length*name.length*companyname.length*bank_num.length*title.length*bank_name.length>0)
+  		{  			
+  			tableDict.push({'tid':jQuery("#teacherid").val(),'sex':sex,'projectname':projectname,'name':name,'cname':companyname,'bank_name':bank_name,'bank_num':bank_num,'title':title,'total':total,'hour_count':hour_count});
+  			jQuery("#left-container").attr("class","col-md-3");			
+  			jQuery("#right-container").attr("style","display: inline");		
+
+  		}
+  		else
+  		{
+  			jQuery("#alertmsg").show();	
+  		}
+
+  	});
+
+  	jQuery("#tshowbtn").click(function(){ 
+  		jQuery("#plist").attr("style","display:inline");
+  		jQuery("#tshowbtn").attr("style","display:none"); 
+  	});  
+});  
+</script> 

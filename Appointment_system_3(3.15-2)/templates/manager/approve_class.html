@@ -1,0 +1,58 @@
+$def with (items,date,days)
+<style>
+.project{height:65;overflow:hidden;text-overflow:ellipsis;}
+.title{width:35;height:20;}
+.date{width:15;height:20;}
+</style> 
+
+<div class="page-header">
+<h4><strong>审批细项 </strong><a href="/index">返回</a></h4>
+
+</div>
+<form action="/approve_class/$date" method="post" class="form-group">
+
+<input type='month' name='date' value=$date>
+<input type="submit" class="btn btn-primary btn-lg" value="确定" >&nbsp;&nbsp;
+<label class="alert alert-success">审批通过</label>&nbsp;&nbsp;
+<label class="alert alert-warning">未审批</label>
+</form>
+
+<table class="table table-bordered table-condensed">
+<tr>
+<td colspan=2><div class='title'>日期</div></td>
+$for i in range(1,days+1):
+	<td colspan=2><div class='date'>$i</div></td>
+</tr>
+<tr>
+<td><div class='title'>地点</div></td><td><div class='title'>教室</div></td>
+$for ii in range(days):
+	<td><div class='date'>上</div></td><td><div class='date'>下</div></td>
+</tr>
+<tr><td colspan=$(days*2+2)></td></tr>
+$for p in set(item['place'] for item in items):
+	<tr>
+	<td rowspan=$len(list(item for item in items if item['place']==p))><div class='project'>$p</div></td>
+	$for i in set(item['classroom'] for item in items if item['place']==p):
+		$if [item for item in items if item['place']==p and item['classroom']==i]:
+			<td title=$i rowspan=$len(list(item for item in items if item['place']==p and item['classroom']==i))><div class='project'>$i</div></td>
+			$for c in [item for item in items if item['place']==p and item['classroom']==i]:
+				$if not(c['begindate'].day==1 and c['begintime']==0):
+					<td colspan=$((c['begindate'].day-1)*2+c['begintime'])><div class='project'></div></td>
+				$if c['approve']=='未审批'.decode('utf-8'):
+					<td class="alert alert-warning" colspan=$((c['enddate'].day-c['begindate'].day+1)*2+c['endtime']-c['begintime']-1) >
+					<div class='project'><a href="/conflict_class/$c['cid']" title=$c['pname']_$c['snumber']人>$c['pname']_$c['snumber']人</a>
+					</div></td>
+				$elif c['approve']=='通过'.decode('utf-8'):
+					<td class="alert alert-success" colspan=$((c['enddate'].day-c['begindate'].day+1)*2+c['endtime']-c['begintime']-1) >
+					<div class='project'><a href="/conflict_class/$c['cid']" title=$c['pname']_$c['snumber']人>$c['pname']_$c['snumber']人</a>
+					</div></td>
+				$if c['enddate'].day<days:
+					<td colspan=$((days-c['enddate'].day)*2+1-c['endtime'])><div class='project'></div></td>
+				$elif c['enddate'].day==days and c['endtime']==0:
+					<td><div class='project'></div></td>
+				</tr>
+				<tr>
+</table>
+
+
+
